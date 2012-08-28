@@ -2,8 +2,16 @@
 
 require "getoptlong"
 
+# returns nuber of extents of the file
+#
 def get_extents file_name
+	begin
 	`filefrag "#{file_name}"`.scan(/\d+/).last.to_i
+	rescue => e
+	puts e.inspect
+	puts "file: " + file_name
+	1
+	end
 end
 
 def human2bytes human_read_size
